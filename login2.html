@@ -732,62 +732,61 @@
                 waitingForCmdRun = true;
                 showStatus("info", "Nakopya ang CMD Finder! I-press ang Win + R, i-paste (Ctrl+V), at pindutin ang Enter.");
             });
-        }
+  }
 
-function downloadExactBatFile() {
-    const batScript = [
-        "@echo off",
-        "setlocal enabledelayedexpansion",
-        "title HWID Finder",
-        "color 0F",
-        "",
-        "echo ==========================================",
-        "echo           DRIVE HWID SCANNER",
-        "echo ==========================================",
-        "",
-        ":: Check drives C through L",
-        "for %%D in (C D E F G H I J K L) do (",
-        '    set "SERIAL="',
-        "    ",
-        "    :: Check if drive exists before querying",
-        '    if exist "%%D:\\" (',
-        '        for /f "tokens=5" %%S in (\'vol %%D: 2^>nul ^| find "Serial Number"\') do (',
-        '            set "HEX_RAW=%%S"',
-        '            set "HEX_CLEAN=!HEX_RAW:-=!"',
-        "            ",
-        "            :: Convert Hex string to Signed 32-bit Decimal (matches C++ DWORD/int)",
-        '            set /a "SERIAL=0x!HEX_CLEAN!"',
-        "        )",
-        "    )",
-        "    ",
-        "    if defined SERIAL (",
-        "        echo Drive %%D:\\  --^>  !SERIAL!",
-        '        if "%%D"=="C" set "calculatedHWID=!SERIAL!"',
-        "    ) else (",
-        "        echo Drive %%D:\\  --^>  [Not Found / No Media]",
-        "    )",
-        ")",
-        "",
-        "echo ==========================================",
-        "if defined calculatedHWID (",
-        "    echo !calculatedHWID!| clip",
-        "    echo Calculated HWID: !calculatedHWID!",
-        "    echo (Copied to Clipboard!)",
-        ") else (",
-        "    echo Error: Drive C: HWID could not be calculated.",
-        ")",
-        "echo ==========================================",
-        "pause"
-    ].join("\r\n");
+        function downloadExactBatFile() {
+            const batScript = [
+                "@echo off",
+                "setlocal enabledelayedexpansion",
+                "title HWID Finder",
+                "color 0F",
+                "",
+                "echo ==========================================",
+                "echo           DRIVE HWID SCANNER",
+                "echo ==========================================",
+                "",
+                "REM Check drives C through L",
+                "for %%D in (C D E F G H I J K L) do (",
+                '    set "SERIAL="',
+                "    ",
+                "    REM Check if drive exists before querying",
+                '    if exist "%%D:\\" (',
+                '        for /f "tokens=5" %%S in (\'vol %%D: 2^>nul ^| find "Serial Number"\') do (',
+                '            set "HEX_RAW=%%S"',
+                '            set "HEX_CLEAN=!HEX_RAW:-=!"',
+                "            ",
+                "            REM Convert Hex string to Signed 32-bit Decimal",
+                '            set /a "SERIAL=0x!HEX_CLEAN!"',
+                "        )",
+                "    )",
+                "    ",
+                "    if defined SERIAL (",
+                "        echo Drive %%D:\\  --^>  !SERIAL!",
+                '        if "%%D"=="C" set "calculatedHWID=!SERIAL!"',
+                "    ) else (",
+                "        echo Drive %%D:\\  --^>  [Not Found / No Media]",
+                "    )",
+                ")",
+                "",
+                "echo ==========================================",
+                "if defined calculatedHWID (",
+                "    echo !calculatedHWID!| clip",
+                "    echo Calculated HWID: !calculatedHWID!",
+                "    echo (Copied to Clipboard!)",
+                ") else (",
+                "    echo Error: Drive C: HWID could not be calculated.",
+                ")",
+                "echo ==========================================",
+                "pause"
+            ].join("\r\n");
 
-    const dataUri = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(batScript);
-    const link = document.createElement("a");
-    link.setAttribute("href", dataUri);
-    link.setAttribute("download", "SEVHOST_HWID_Finder.bat");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+            const dataUri = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(batScript);
+            const link = document.createElement("a");
+            link.setAttribute("href", dataUri);
+            link.setAttribute("download", "SEVHOST_HWID_Finder.bat");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
 
             waitingForCmdRun = true;
             showStatus("info", "Na-download ang SEVHOST_HWID_Finder.bat! Buksan ito sa Downloads folder upang makita at ma-copy ang iyong HWID.");
