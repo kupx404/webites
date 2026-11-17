@@ -11,6 +11,8 @@
             --border-color: rgba(255, 255, 255, 0.08);
             --accent: #00f2fe;
             --accent-2: #4facfe;
+            --discord: #5865F2;
+            --discord-hover: #4752C4;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
@@ -238,14 +240,6 @@
             line-height: 1.55;
         }
 
-        .cmd-guide code {
-            background: rgba(0, 0, 0, 0.55);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--accent);
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        }
-
         .input-group {
             position: relative;
             margin-bottom: 16px;
@@ -272,196 +266,277 @@
             background: rgba(9, 11, 16, 0.8);
             border: 1px solid var(--border-color);
             color: #fff;
-            padding: 14px 68px 14px 16px;
+            padding: 14px 72px 14px 16px;
             border-radius: 10px;
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             font-size: 14px;
-            transition: all 0.2s ease;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         input:focus {
-            outline: none;
-            border-color: var(--accent-2);
-            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.15);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.12);
         }
 
         .paste-btn {
             position: absolute;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.06);
+            right: 8px;
+            background: rgba(255, 255, 255, 0.08);
             border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            color: var(--text-main);
             font-size: 11px;
-            padding: 5px 8px;
+            font-weight: 700;
+            padding: 6px 10px;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
         }
 
         .paste-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .btn {
+            padding: 13px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-discord {
+            background: var(--discord);
             color: #fff;
         }
 
+        .btn-discord:hover {
+            background: var(--discord-hover);
+        }
+
         .btn-primary {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
             background: linear-gradient(135deg, var(--accent-2), var(--accent));
             color: #05080f;
-            font-weight: 700;
-            font-size: 14.5px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.25);
         }
 
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+            filter: brightness(1.08);
         }
 
-        .btn-primary:disabled {
-            background: #2a303c;
-            color: #6b7280;
-            box-shadow: none;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        #statusBox {
-            margin-top: 16px;
-            padding: 12px 14px;
-            border-radius: 10px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 12.5px;
+        .status-msg {
             display: none;
-            line-height: 1.4;
+            padding: 11px 14px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            line-height: 1.45;
+            margin-top: 12px;
         }
 
-        .error { background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; }
-        .warning { background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3); color: #fcd34d; }
-        .info { background: rgba(79, 172, 254, 0.12); border: 1px solid rgba(79, 172, 254, 0.3); color: #93c5fd; }
-        .success { background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); color: #6ee7b7; }
+        .status-msg.info {
+            display: block;
+            background: rgba(79, 172, 254, 0.12);
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            color: #7dd3fc;
+        }
 
-        #homePage { display: none; }
+        .status-msg.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
 
-        .profile-card {
-            background: rgba(9, 11, 16, 0.65);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
+        .status-msg.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        /* Dashboard / Home Page */
+        .user-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .user-info h2 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-
-        .hwid-tag {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 11.5px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-
-        .hwid-tag:hover { color: var(--accent); }
-        .status-pill { text-align: right; }
-
-        .badge-active {
-            display: inline-block;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.35);
-            color: #34d399;
-            font-size: 11px;
+        .user-info h2 {
+            font-size: 18px;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 999px;
             margin-bottom: 4px;
         }
 
-        .expiry-text {
-            display: block;
+        .user-hwid {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-muted);
         }
 
-        .section-title {
-            font-size: 11.5px;
+        .active-pill {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #6ee7b7;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
+            padding: 5px 10px;
+            border-radius: 999px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .stat-card {
+            background: rgba(9, 11, 16, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .stat-label {
+            font-size: 11px;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-value.verified {
+            color: var(--success);
+        }
+
+        /* Showcase Video Section */
+        .showcase-section {
+            background: rgba(9, 11, 16, 0.85);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        .showcase-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .showcase-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .autoplay-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            padding: 3px 8px;
+            border-radius: 999px;
+        }
+
+        .autoplay-badge .dot {
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--accent);
+            animation: pulse 1.5s infinite;
         }
 
         .video-wrapper {
             width: 100%;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
-            background: #05080f;
             border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-            aspect-ratio: 16 / 9;
+            background: #000;
+            margin-bottom: 10px;
         }
 
         .video-wrapper video {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
             display: block;
+            object-fit: cover;
+            pointer-events: none;
         }
 
-        .resource-list {
+        .action-links {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 16px;
         }
 
-        .resource-item {
+        .action-link {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 13px 16px;
-            background: rgba(9, 11, 16, 0.65);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
             color: var(--text-main);
-            text-decoration: none;
-            font-size: 13.5px;
+            padding: 11px 14px;
+            border-radius: 9px;
+            font-size: 13px;
             font-weight: 600;
-            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        .resource-item:hover {
-            border-color: var(--accent-2);
-            background: rgba(79, 172, 254, 0.08);
-            transform: translateX(3px);
+        .action-link:hover {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: rgba(0, 242, 254, 0.35);
+            color: var(--accent);
+        }
+
+        .action-link:disabled {
+            opacity: 0.6;
+            cursor: wait;
         }
 
         .btn-logout {
             width: 100%;
-            padding: 12px;
             background: rgba(239, 68, 68, 0.12);
             border: 1px solid rgba(239, 68, 68, 0.3);
             color: #fca5a5;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 13.5px;
+            padding: 11px;
+            border-radius: 9px;
+            font-size: 12.5px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
         }
 
         .btn-logout:hover {
@@ -471,12 +546,12 @@
     </style>
 </head>
 <body>
+
     <div class="container">
+        <!-- LOGIN PAGE -->
         <div id="loginPage">
             <div class="brand-header">
-                <div class="brand-badge">
-                    <span class="dot"></span> SYSTEM ONLINE
-                </div>
+                <div class="brand-badge"><span class="dot"></span> SYSTEM ONLINE</div>
                 <h1>License Authentication</h1>
                 <p class="subtitle">I-click ang button sa ibaba upang kunin ang iyong totoong System HWID.</p>
             </div>
@@ -484,238 +559,249 @@
             <div class="finder-box">
                 <div class="finder-top">
                     <span class="finder-label">SYSTEM HWID FINDER</span>
-                    <span class="finder-status" id="finderBadge">READY</span>
+                    <span class="finder-status" id="finderStatusBadge">READY</span>
                 </div>
+
                 <div class="finder-display">
-                    <span class="finder-value empty" id="detectedHwidText">Wala pang HWID — pindutin ang button</span>
-                    <button type="button" id="copyDetectedBtn" class="copy-hwid-btn" disabled>COPY HWID</button>
+                    <span class="finder-value empty" id="detectedHwidDisplay">Wala pang HWID — pindutin ang button</span>
+                    <button type="button" class="copy-hwid-btn" id="copyDetectedBtn" disabled>COPY HWID</button>
                 </div>
+
                 <div class="finder-actions">
-                    <button type="button" id="copyCmdRunBtn" class="btn-finder btn-cmd">Copy CMD (Win+R)</button>
-                    <button type="button" id="downloadBatBtn" class="btn-finder btn-bat">Download .BAT</button>
+                    <button type="button" class="btn-finder btn-cmd" onclick="copyOneLineCmd()">Copy CMD (Win+R)</button>
+                    <button type="button" class="btn-finder btn-bat" onclick="downloadExactBatFile()">Download .BAT</button>
                 </div>
+
                 <div class="cmd-guide" id="cmdGuideBox">
-                    <b>Nakopya na ang CMD command!</b><br>
-                    1. Pindutin sa keyboard ang <code>Win + R</code><br>
-                    2. Pindutin ang <code>Ctrl + V</code> at <code>Enter</code><br>
-                    3. Bumalik dito at pindutin ang <b>PASTE</b>.
+                    <strong>Nakopya na ang CMD command!</strong><br>
+                    1. Pindutin sa keyboard ang <strong>Win + R</strong><br>
+                    2. Pindutin ang <strong>Ctrl + V</strong> at <strong>Enter</strong><br>
+                    3. Bumalik dito at pindutin ang <strong>PASTE</strong>.
                 </div>
             </div>
 
             <div class="input-group">
                 <label for="hwidInput">Hardware ID (System Signature)</label>
                 <div class="input-wrapper">
-                    <input type="text" id="hwidInput" placeholder="Halimbawa: 199495848">
-                    <button type="button" id="pasteBtn" class="paste-btn">PASTE</button>
+                    <input type="text" id="hwidInput" placeholder="I-paste dito ang iyong HWID..." oninput="checkHWIDLive()">
+                    <button type="button" class="paste-btn" onclick="pasteFromClipboard()">PASTE</button>
                 </div>
             </div>
 
-            <button type="button" id="submitBtn" class="btn-primary">Verify & Login</button>
-            <div id="statusBox"></div>
+            <div class="btn-group">
+                <a href="https://discord.gg/Hs3vYavRW" target="_blank" class="btn btn-discord">Join Discord Server</a>
+                <button type="button" class="btn btn-primary" onclick="verifyLogin()">Verify &amp; Login</button>
+            </div>
+
+            <div id="statusMessage" class="status-msg"></div>
         </div>
 
-        <div id="homePage">
-            <div class="profile-card">
+        <!-- HOME / DASHBOARD PAGE -->
+        <div id="homePage" style="display: none;">
+            <div class="user-header">
                 <div class="user-info">
                     <h2 id="displayClientName">User</h2>
-                    <div class="hwid-tag" id="copyHwidBtn">
-                        <span>HWID: <span id="displayHwid">---</span></span>
-                        <span id="copyFeedback">[Copy]</span>
-                    </div>
+                    <div class="user-hwid">HWID: <span id="displayHwid">---</span></div>
                 </div>
-                <div class="status-pill">
-                    <span class="badge-active" id="statusBadge">ACTIVE</span>
-                    <span class="expiry-text" id="displayExpiry">N/A</span>
+                <span class="active-pill" id="statusBadge">ACTIVE</span>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">License Status</div>
+                    <div class="stat-value verified">VERIFIED</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Expiration</div>
+                    <div class="stat-value" id="displayExpiry">N/A</div>
                 </div>
             </div>
 
-            <div class="section-title">
-                <span>Live Showcase Preview</span>
-                <span style="color: var(--success);">● AUTO-PLAY</span>
-            </div>
-            <div class="video-wrapper">
-                <video id="previewVideo" autoplay muted loop playsinline preload="auto"></video>
+            <!-- LIVE SHOWCASE PREVIEW (AUTO-PLAY MP4 + FULL RES DOWNLOAD) -->
+            <div class="showcase-section">
+                <div class="showcase-header">
+                    <span class="showcase-title">Live Showcase Preview</span>
+                    <span class="autoplay-badge"><span class="dot"></span> AUTO-PLAY</span>
+                </div>
+
+                <div class="video-wrapper">
+                    <video id="showcaseVideo" autoplay loop muted playsinline disablePictureInPicture>
+                        <source src="https://raw.githubusercontent.com/kupx505/webites/main/ScreenRecorderProject1.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <button type="button" class="action-link" style="width: 100%; border-color: rgba(0, 242, 254, 0.35); background: rgba(0, 242, 254, 0.1); color: var(--accent);" onclick="downloadFullResVideo(this)">
+                    <span>Download Full Showcase Video (.MP4)</span>
+                    <span>↓</span>
+                </button>
             </div>
 
-            <div class="section-title">
-                <span>Quick Resources</span>
-            </div>
-            <div class="resource-list">
-                <a href="#" id="showcaseLinkBtn" target="_blank" class="resource-item">
-                    <span>Watch Full Showcase Video</span>
-                    <span>→</span>
-                </a>
-                <a href="#" id="downloadLoaderBtn" target="_blank" class="resource-item">
+           <div class="action-links">
+                <a href="https://dl.dropbox.com/scl/fi/sw3eyvj7upr6kz2i5f32d/ID-Gate.exe?rlkey=dod0owyj3yaj8ofztdglphc57&st=o08vrvbs&dl=1" target="_blank" rel="noopener noreferrer" class="action-link">
                     <span>Download Latest Loader</span>
                     <span>→</span>
                 </a>
-                <a href="#" id="supportLinkBtn" target="_blank" class="resource-item">
-                    <span>Contact Admin Support</span>
+                <a href="https://discord.gg/Hs3vYavRW" target="_blank" rel="noopener noreferrer" class="action-link">
+                    <span>Contact Admin Support (Discord)</span>
                     <span>→</span>
                 </a>
             </div>
 
-            <button type="button" id="logoutBtn" class="btn-logout">Disconnect / Logout</button>
+            <button type="button" class="btn-logout" onclick="logout()">Disconnect / Logout</button>
         </div>
     </div>
 
     <script>
         const GITHUB_URL = "https://raw.githubusercontent.com/kupx505/webites/refs/heads/main/Ctool.txt";
-        const CATBOX_VIDEO_URL = "https://www.facebook.com/share/v/1E5Guk5RR8/";
-        const FULL_SHOWCASE_URL = "https://www.facebook.com/share/v/1E5Guk5RR8/";
-        const LOADER_DOWNLOAD_URL = "https://dl.dropbox.com/scl/fi/sw3eyvj7upr6kz2i5f32d/ID-Gate.exe?rlkey=dod0owyj3yaj8ofztdglphc57&st=o08vrvbs&dl=0";
-        const ADMIN_SUPPORT_URL = "https://discord.gg/Hs3vYavRW";
-
-        document.getElementById('showcaseLinkBtn').href = FULL_SHOWCASE_URL;
-        document.getElementById('downloadLoaderBtn').href = LOADER_DOWNLOAD_URL;
-        document.getElementById('supportLinkBtn').href = ADMIN_SUPPORT_URL;
-
-        const video = document.getElementById('previewVideo');
-        video.muted = true;
-        video.defaultMuted = true;
-        video.src = CATBOX_VIDEO_URL;
-
-        let cachedDatabase = [];
-        let isDatabaseLoaded = false;
+        const SHOWCASE_MP4_URL = "https://raw.githubusercontent.com/kupx505/webites/main/ScreenRecorderProject1.mp4";
+        const video = document.getElementById("showcaseVideo");
         let waitingForCmdRun = false;
 
-        function showStatus(type, message) {
-            const statusBox = document.getElementById('statusBox');
-            statusBox.className = type;
-            statusBox.textContent = message;
-            statusBox.style.display = 'block';
+        function showStatus(type, msg) {
+            const box = document.getElementById("statusMessage");
+            box.className = "status-msg " + type;
+            box.textContent = msg;
         }
 
-        function hideStatus() {
-            const statusBox = document.getElementById('statusBox');
-            statusBox.style.display = 'none';
+        function extractNumericHWID(raw) {
+            if (!raw) return "";
+            return raw.replace(/\D/g, "");
         }
 
-        function copyTextSafe(text, onSuccess) {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
-                    fallbackCopy(text, onSuccess);
-                });
+        function checkHWIDLive() {
+            const val = document.getElementById("hwidInput").value.trim();
+            const clean = extractNumericHWID(val) || val;
+            const display = document.getElementById("detectedHwidDisplay");
+            const copyBtn = document.getElementById("copyDetectedBtn");
+            const badge = document.getElementById("finderStatusBadge");
+
+            if (clean) {
+                display.textContent = clean;
+                display.classList.remove("empty");
+                copyBtn.disabled = false;
+                copyBtn.onclick = () => copyTextSafe(clean, () => showStatus("info", "Nakopya ang HWID sa clipboard!"));
+                badge.textContent = "DETECTED";
+                badge.classList.add("ready");
             } else {
-                fallbackCopy(text, onSuccess);
+                display.textContent = "Wala pang HWID — pindutin ang button";
+                display.classList.add("empty");
+                copyBtn.disabled = true;
+                badge.textContent = "READY";
+                badge.classList.remove("ready");
             }
         }
 
-        function fallbackCopy(text, onSuccess) {
-            const ta = document.createElement("textarea");
-            ta.value = text;
-            ta.style.position = "fixed";
-            ta.style.left = "-9999px";
-            document.body.appendChild(ta);
-            ta.focus();
-            ta.select();
+        function copyTextSafe(text, callback) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    if (callback) callback();
+                }).catch(() => {
+                    fallbackCopy(text, callback);
+                });
+            } else {
+                fallbackCopy(text, callback);
+            }
+        }
+
+        function fallbackCopy(text, callback) {
+            const temp = document.createElement("textarea");
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+            if (callback) callback();
+        }
+
+        async function pasteFromClipboard() {
             try {
-                document.execCommand("copy");
-                if (onSuccess) onSuccess();
-            } catch (e) {}
-            document.body.removeChild(ta);
-        }
-
-        function extractNumericHWID(rawText) {
-            if (!rawText || typeof rawText !== 'string') return "";
-            const match = rawText.trim().match(/\b(\d{6,12})\b/);
-            return (match && match[1]) ? match[1] : "";
-        }
-
-        function setDetectedHWID(hwidStr) {
-            const cleanHwid = extractNumericHWID(hwidStr);
-            if (!cleanHwid) return false;
-
-            const displayEl = document.getElementById('detectedHwidText');
-            const copyBtn = document.getElementById('copyDetectedBtn');
-            const badgeEl = document.getElementById('finderBadge');
-            const inputEl = document.getElementById('hwidInput');
-
-            displayEl.textContent = cleanHwid;
-            displayEl.classList.remove('empty');
-            copyBtn.disabled = false;
-
-            badgeEl.textContent = "HWID FOUND";
-            badgeEl.classList.add('ready');
-
-            inputEl.value = cleanHwid;
-            localStorage.setItem('real_system_hwid', cleanHwid);
-            document.getElementById('cmdGuideBox').style.display = 'none';
-            checkHWIDLive();
-            return true;
+                const text = await navigator.clipboard.readText();
+                const clean = extractNumericHWID(text) || text.trim();
+                document.getElementById("hwidInput").value = clean;
+                checkHWIDLive();
+            } catch (err) {
+                showStatus("error", "Hindi ma-access ang clipboard. I-press ang Ctrl+V sa input box.");
+            }
         }
 
         function copyOneLineCmd() {
             const cmdOneLiner = `cmd /c "for %D in (C D E F G H I J K L) do @for /f "tokens=5" %S in ('vol %D: 2^>nul ^| findstr /i Serial') do @powershell -NoP -C "$h=[Convert]::ToUInt32('%S'.Replace('-',''),16); if($h -ne 0){Set-Clipboard $h; Write-Host 'Calculated HWID:' $h; pause; exit}" & exit"`;
 
             copyTextSafe(cmdOneLiner, () => {
-                document.getElementById('cmdGuideBox').style.display = 'block';
+                document.getElementById("cmdGuideBox").style.display = "block";
                 waitingForCmdRun = true;
                 showStatus("info", "Nakopya ang CMD Finder! I-press ang Win + R, i-paste (Ctrl+V), at pindutin ang Enter.");
             });
         }
 
-        function downloadExactBatFile() {
-            const batScript = [
-                "@echo off",
-                "setlocal enabledelayedexpansion",
-                "title SEVHOST // System HWID Finder",
-                "color 0B",
-                "set \"calculatedHWID=\"",
-                "",
-                "for %%D in (C D E F G H I J K L) do (",
-                "    if not defined calculatedHWID (",
-                "        for /f \"tokens=5\" %%S in ('vol %%D: 2^>nul ^| findstr /i \"Serial\"') do (",
-                "            set \"hexSerial=%%S\"",
-                "            set \"hexSerial=!hexSerial:-=!\"",
-                "            set /a \"decSerial=0x!hexSerial!\" 2>nul",
-                "            if !decSerial! neq 0 (",
-                "                if !decSerial! lss 0 (",
-                "                    set /a \"high=(!decSerial! >> 16) & 0xFFFF\"",
-                "                    set /a \"low=!decSerial! & 0xFFFF\"",
-                "                    set /a \"top=!high! / 10\"",
-                "                    set /a \"rem=!high! %% 10\"",
-                "                    set /a \"bot=(!rem! * 65536) + !low!\"",
-                "                    set \"botStr=00000!bot!\"",
-                "                    set \"botStr=!botStr:~-5!\"",
-                "                    set \"calculatedHWID=!top!!botStr!\"",
-                "                ) else (",
-                "                    set \"calculatedHWID=!decSerial!\"",
-                "                )",
-                "            )",
-                "        )",
-                "    )",
-                ")",
-                "",
-                "echo !calculatedHWID!| clip",
-                "echo ==========================================",
-                "echo Calculated HWID: !calculatedHWID!",
-                "echo (Copied to Clipboard!)",
-                "echo ==========================================",
-                "pause"
-            ].join("\r\n");
+function downloadExactBatFile() {
+    const batScript = [
+        "@echo off",
+        "setlocal enabledelayedexpansion",
+        "title HWID Finder",
+        "color 0F",
+        "",
+        "echo ==========================================",
+        "echo           DRIVE HWID SCANNER",
+        "echo ==========================================",
+        "",
+        ":: Check drives C through L",
+        "for %%D in (C D E F G H I J K L) do (",
+        '    set "SERIAL="',
+        "    ",
+        "    :: Check if drive exists before querying",
+        '    if exist "%%D:\\" (',
+        '        for /f "tokens=5" %%S in (\'vol %%D: 2^>nul ^| find "Serial Number"\') do (',
+        '            set "HEX_RAW=%%S"',
+        '            set "HEX_CLEAN=!HEX_RAW:-=!"',
+        "            ",
+        "            :: Convert Hex string to Signed 32-bit Decimal (matches C++ DWORD/int)",
+        '            set /a "SERIAL=0x!HEX_CLEAN!"',
+        "        )",
+        "    )",
+        "    ",
+        "    if defined SERIAL (",
+        "        echo Drive %%D:\\  --^>  !SERIAL!",
+        '        if "%%D"=="C" set "calculatedHWID=!SERIAL!"',
+        "    ) else (",
+        "        echo Drive %%D:\\  --^>  [Not Found / No Media]",
+        "    )",
+        ")",
+        "",
+        "echo ==========================================",
+        "if defined calculatedHWID (",
+        "    echo !calculatedHWID!| clip",
+        "    echo Calculated HWID: !calculatedHWID!",
+        "    echo (Copied to Clipboard!)",
+        ") else (",
+        "    echo Error: Drive C: HWID could not be calculated.",
+        ")",
+        "echo ==========================================",
+        "pause"
+    ].join("\r\n");
 
-            const dataUri = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(batScript);
-            const link = document.createElement("a");
-            link.setAttribute("href", dataUri);
-            link.setAttribute("download", "SEVHOST_HWID_Finder.bat");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+    const dataUri = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(batScript);
+    const link = document.createElement("a");
+    link.setAttribute("href", dataUri);
+    link.setAttribute("download", "SEVHOST_HWID_Finder.bat");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
             waitingForCmdRun = true;
             showStatus("info", "Na-download ang SEVHOST_HWID_Finder.bat! Buksan ito sa Downloads folder upang makita at ma-copy ang iyong HWID.");
         }
 
         function openHomePage(hwid, clientName, expiryDateStr) {
-            localStorage.setItem('saved_hwid', hwid);
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('homePage').style.display = 'block';
-            document.getElementById('displayClientName').textContent = clientName;
-            document.getElementById('displayHwid').textContent = hwid;
-            document.getElementById('displayExpiry').textContent = expiryDateStr;
+            localStorage.setItem("saved_hwid", hwid);
+            document.getElementById("loginPage").style.display = "none";
+            document.getElementById("homePage").style.display = "block";
+            document.getElementById("displayClientName").textContent = clientName;
+            document.getElementById("displayHwid").textContent = hwid;
+            document.getElementById("displayExpiry").textContent = expiryDateStr;
 
-            const badge = document.getElementById('statusBadge');
+            const badge = document.getElementById("statusBadge");
             if (expiryDateStr.toLowerCase().includes("no expired") ||
                 expiryDateStr.toLowerCase().includes("lifetime")) {
                 badge.textContent = "VIP // LIFETIME";
@@ -723,18 +809,47 @@
                 badge.textContent = "ACTIVE LICENSE";
             }
 
-            video.muted = true;
-            video.currentTime = 0;
-            video.play().catch(() => {});
+            if (video && video.querySelector("source").getAttribute("src")) {
+                video.muted = true;
+                video.currentTime = 0;
+                video.play().catch(() => {});
+            }
         }
 
         function logout() {
-            localStorage.removeItem('saved_hwid');
-            video.pause();
-            video.currentTime = 0;
-            document.getElementById('homePage').style.display = 'none';
-            document.getElementById('loginPage').style.display = 'block';
+            localStorage.removeItem("saved_hwid");
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+            document.getElementById("homePage").style.display = "none";
+            document.getElementById("loginPage").style.display = "block";
             checkHWIDLive();
+        }
+
+        async function downloadFullResVideo(btn) {
+            const labelSpan = btn.querySelector("span");
+            const originalText = labelSpan.textContent;
+            labelSpan.textContent = "Downloading Full Resolution (.MP4)...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(SHOWCASE_MP4_URL);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "SEVHOST_Showcase_FullRes.mp4";
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            } catch (err) {
+                window.open(SHOWCASE_MP4_URL, "_blank");
+            }
+
+            labelSpan.textContent = originalText;
+            btn.disabled = false;
         }
 
         function getMonthNumber(dateStr) {
@@ -795,181 +910,60 @@
                 const hwid = match[1].trim();
                 const block = match[2];
 
-                const nameMatch = block.match(/'name'\s*:?\s*([^,\n}]+)/i);
-                const dateMatch = block.match(/'date'\s*:?\s*([^,\n}]+)/i);
+                const nameMatch = block.match(/'name'\s*:\s*'([^']*)'/i) || block.match(/"name"\s*:\s*"([^"]*)"/i);
+                const expMatch = block.match(/'expired'\s*:\s*'([^']*)'/i) || block.match(/"expired"\s*:\s*"([^"]*)"/i) ||
+                                 block.match(/'expiry'\s*:\s*'([^']*)'/i) || block.match(/"expiry"\s*:\s*"([^"]*)"/i);
 
                 entries.push({
                     hwid: hwid,
-                    name: (nameMatch && nameMatch[1]) ? nameMatch[1].trim() : "Registered Client",
-                    date: (dateMatch && dateMatch[1]) ? dateMatch[1].trim() : "N/A"
+                    name: nameMatch ? nameMatch[1].trim() : "Verified Client",
+                    expiry: expMatch ? expMatch[1].trim() : "Lifetime"
                 });
             }
             return entries;
         }
 
-        async function loadDatabase() {
-            try {
-                const rawData = await fetchHWIDList();
-                cachedDatabase = parseHWIDDatabase(rawData);
-                isDatabaseLoaded = true;
-            } catch (err) {
-                console.error(err);
-            }
-        }
+        async function verifyLogin() {
+            const rawInput = document.getElementById("hwidInput").value.trim();
+            const cleanHwid = extractNumericHWID(rawInput) || rawInput;
 
-        function checkHWIDLive() {
-            const inputEl = document.getElementById('hwidInput');
-            const cleanVal = extractNumericHWID(inputEl.value);
-
-            if (!inputEl.value.trim()) {
-                hideStatus();
-                return null;
-            }
-
-            if (!isDatabaseLoaded) {
-                showStatus("info", "Checking server database...");
-                return null;
-            }
-
-            const targetHwid = cleanVal || inputEl.value.replace(/\s+/g, '');
-            const matches = cachedDatabase.filter(item => item.hwid === targetHwid);
-
-            if (matches.length === 0) {
-                showStatus("error", "HWID NOT VALID — Kopyahin ang iyong HWID sa itaas at ipadala sa Admin.");
-                return null;
-            }
-
-            const activeMatch = matches.find(item => !isExpired(item.date)) || matches[0];
-
-            if (isExpired(activeMatch.date)) {
-                showStatus("warning", `HWID EXPIRED (${activeMatch.date}) — Mag-renew sa Admin.`);
-                return null;
-            }
-
-            showStatus("success", `HWID VALID — ${activeMatch.name} (${activeMatch.date})`);
-            return activeMatch;
-        }
-
-        async function verifyHWID() {
-            video.muted = true;
-            video.play().then(() => video.pause()).catch(() => {});
-
-            const inputEl = document.getElementById('hwidInput');
-            const submitBtn = document.getElementById('submitBtn');
-            const currentHWID = extractNumericHWID(inputEl.value) || inputEl.value.replace(/\s+/g, '');
-
-            if (!currentHWID) {
-                showStatus("error", "Kunin muna ang iyong HWID gamit ang CMD o .BAT button sa itaas.");
+            if (!cleanHwid) {
+                showStatus("error", "Maglagay muna ng valid na Hardware ID.");
                 return;
             }
 
-            submitBtn.disabled = true;
+            showStatus("info", "Bine-verify ang iyong HWID sa server...");
 
             try {
-                if (!isDatabaseLoaded) {
-                    showStatus("info", "Connecting to database...");
-                    await loadDatabase();
+                const rawDb = await fetchHWIDList();
+                const entries = parseHWIDDatabase(rawDb);
+                const userRecord = entries.find(e => e.hwid === cleanHwid);
+
+                if (!userRecord) {
+                    showStatus("error", "Hindi naka-rehistro ang HWID na ito. I-contact ang admin sa Discord.");
+                    return;
                 }
 
-                const validEntry = checkHWIDLive();
-
-                if (validEntry) {
-                    setTimeout(() => {
-                        openHomePage(validEntry.hwid, validEntry.name, validEntry.date);
-                        submitBtn.disabled = false;
-                    }, 400);
-                } else {
-                    submitBtn.disabled = false;
+                if (isExpired(userRecord.expiry)) {
+                    showStatus("error", "Expired na ang iyong license (" + userRecord.expiry + ").");
+                    return;
                 }
+
+                showStatus("success", "Verified! Binubuksan ang portal...");
+                setTimeout(() => {
+                    openHomePage(userRecord.hwid, userRecord.name, userRecord.expiry);
+                }, 400);
             } catch (err) {
-                showStatus("error", err.message || "Error connecting to authentication server.");
-                submitBtn.disabled = false;
+                showStatus("error", "Error sa pagkonekta sa database: " + err.message);
             }
         }
 
-        document.getElementById('copyCmdRunBtn').addEventListener('click', copyOneLineCmd);
-        document.getElementById('downloadBatBtn').addEventListener('click', downloadExactBatFile);
-
-        document.getElementById('copyDetectedBtn').addEventListener('click', () => {
-            const hwidVal = document.getElementById('detectedHwidText').textContent;
-            copyTextSafe(hwidVal, () => {
-                const btn = document.getElementById('copyDetectedBtn');
-                btn.textContent = "COPIED!";
-                setTimeout(() => btn.textContent = "COPY HWID", 1500);
-            });
-        });
-
-        document.getElementById('hwidInput').addEventListener('input', (e) => {
-            const clean = extractNumericHWID(e.target.value);
-            if (clean) {
-                const displayEl = document.getElementById('detectedHwidText');
-                displayEl.textContent = clean;
-                displayEl.classList.remove('empty');
-                document.getElementById('copyDetectedBtn').disabled = false;
-                document.getElementById('finderBadge').textContent = "HWID FOUND";
-                document.getElementById('finderBadge').classList.add('ready');
-            }
-            checkHWIDLive();
-        });
-
-        document.getElementById('pasteBtn').addEventListener('click', async () => {
-            try {
-                const text = await navigator.clipboard.readText();
-                if (!setDetectedHWID(text)) {
-                    document.getElementById('hwidInput').value = text.trim();
-                    checkHWIDLive();
-                }
-            } catch (err) {
-                document.getElementById('hwidInput').focus();
-                showStatus("warning", "Pindutin ang Ctrl+V sa loob ng input box upang i-paste.");
-            }
-        });
-
-        document.getElementById('submitBtn').addEventListener('click', verifyHWID);
-        document.getElementById('logoutBtn').addEventListener('click', logout);
-        document.getElementById('hwidInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') verifyHWID();
-        });
-
-        document.getElementById('copyHwidBtn').addEventListener('click', () => {
-            const hwidText = document.getElementById('displayHwid').textContent;
-            copyTextSafe(hwidText, () => {
-                const feedback = document.getElementById('copyFeedback');
-                feedback.textContent = "[Copied!]";
-                setTimeout(() => feedback.textContent = "[Copy]", 1500);
-            });
-        });
-
-        window.addEventListener('focus', async () => {
-            if (waitingForCmdRun) {
-                waitingForCmdRun = false;
-                try {
-                    const text = await navigator.clipboard.readText();
-                    setDetectedHWID(text);
-                } catch (e) {}
-            }
-        });
-
-        window.addEventListener('DOMContentLoaded', async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const urlHwid = urlParams.get('hwid');
-            const savedRealHwid = localStorage.getItem('real_system_hwid');
-
-            if (urlHwid) {
-                setDetectedHWID(urlHwid);
-            } else if (savedRealHwid) {
-                setDetectedHWID(savedRealHwid);
-            }
-
-            await loadDatabase();
-
-            const currentInput = document.getElementById('hwidInput').value;
-            if (currentInput) {
-                const validEntry = checkHWIDLive();
-                const savedLogin = localStorage.getItem('saved_hwid');
-                if (savedLogin && validEntry && savedLogin === validEntry.hwid) {
-                    openHomePage(validEntry.hwid, validEntry.name, validEntry.date);
-                }
+        window.addEventListener("DOMContentLoaded", () => {
+            const saved = localStorage.getItem("saved_hwid");
+            if (saved) {
+                document.getElementById("hwidInput").value = saved;
+                checkHWIDLive();
+                verifyLogin();
             }
         });
     </script>
