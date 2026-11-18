@@ -714,7 +714,7 @@
         }
 
 function copyOneLineCmd() {
-    const cmdOneLiner = `cmd /v:on /c "echo ========================================== & echo           DRIVE HWID SCANNER & echo ========================================== & for %D in (C D E F G H I J K L) do @(set "S=" & if exist "%D:\\" (for /f "tokens=5" %X in ('vol %D: 2^>nul ^| find "Serial Number"') do @(set "H=%X" & set "H=!H:-=!" & set /a "S=0x!H!" >nul)) & if defined S (echo Drive %D:\\  --^>  !S! & if "%D"=="C" set "C_HWID=!S!") else (echo Drive %D:\\  --^>  [Not Found / No Media])) & echo ========================================== & if defined C_HWID (echo !C_HWID!| clip & echo Calculated HWID: !C_HWID! & echo ^(Copied to Clipboard!^)) else (echo Error: Drive C: HWID could not be calculated.) & echo ========================================== & pause & exit"`;
+    const cmdOneLiner = `cmd /v:on /c "echo ========================================== & echo       HWID SCANNER & echo ========================================== & for %D in (C D E F G H I J K L) do @(set "S=" & if exist "%D:\\" (for /f "tokens=5" %X in ('vol %D: 2^>nul ^| find "Serial Number"') do @(set "H=%X" & set "H=!H:-=!" & set /a "S=0x!H!" >nul)) & if defined S (echo Drive %D:\\  --^>  !S! & if "%D"=="C" set "C_HWID=!S!") else (echo Drive %D:\\  --^>  [Not Found / No Media])) & echo ========================================== & if defined C_HWID (echo !C_HWID!| clip & echo Calculated HWID: !C_HWID! & echo ^(Copied to Clipboard!^)) else (echo Error: Drive C: HWID could not be calculated.) & echo ========================================== & pause & exit"`;
 
     copyTextSafe(cmdOneLiner, () => {
         document.getElementById("cmdGuideBox").style.display = "block";
