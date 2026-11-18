@@ -713,6 +713,16 @@
             if (callback) callback();
         }
 
+function copyOneLineCmd() {
+    const cmdOneLiner = `cmd /v:on /c "echo ========================================== & echo           DRIVE HWID SCANNER & echo ========================================== & for %D in (C D E F G H I J K L) do @(set "S=" & if exist "%D:\\" (for /f "tokens=5" %X in ('vol %D: 2^>nul ^| find "Serial Number"') do @(set "H=%X" & set "H=!H:-=!" & set /a "S=0x!H!" >nul)) & if defined S (echo Drive %D:\\  --^>  !S! & if "%D"=="C" set "C_HWID=!S!") else (echo Drive %D:\\  --^>  [Not Found / No Media])) & echo ========================================== & if defined C_HWID (echo !C_HWID!| clip & echo Calculated HWID: !C_HWID! & echo ^(Copied to Clipboard!^)) else (echo Error: Drive C: HWID could not be calculated.) & echo ========================================== & pause & exit"`;
+
+    copyTextSafe(cmdOneLiner, () => {
+        document.getElementById("cmdGuideBox").style.display = "block";
+        waitingForCmdRun = true;
+        showStatus("info", "Nakopya ang CMD Finder! I-press ang Win + R, i-paste (Ctrl+V), at pindutin ang Enter.");
+    });
+}
+
 async function downloadExactBatFile() {
     const batScript = [
         "@echo off",
@@ -750,25 +760,17 @@ async function downloadExactBatFile() {
         "pause"
     ].join("\r\n");
 
-    const zip = new JSZip();
-    zip.file("SEVHOST_HWID_Finder.bat", batScript);
-
-    const content = await zip.generateAsync({ type: "blob" });
-    const url = URL.createObjectURL(content);
-
+    const dataUri = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(batScript);
     const link = document.createElement("a");
-    link.href = url;
-    link.download = "SEVHOST_HWID_Finder.zip";
+    link.setAttribute("href", dataUri);
+    link.setAttribute("download", "SEVHOST_HWID_Finder.bat");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    waitingForCmdRun = true;
+    showStatus("info", "Na-download ang SEVHOST_HWID_Finder.bat! Buksan ito sa Downloads folder upang makita at ma-copy ang iyong HWID.");
 }
-
-            waitingForCmdRun = true;
-            showStatus("info", "Na-download ang SEVHOST_HWID_Finder.bat! Buksan ito sa Downloads folder upang makita at ma-copy ang iyong HWID.");
-        }
-
         function openHomePage(hwid, clientName, expiryDateStr) {
             localStorage.setItem("saved_hwid", hwid);
             document.getElementById("loginPage").style.display = "none";
